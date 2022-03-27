@@ -1,0 +1,18 @@
+on chat:
+	if player has permission "chat.admin":
+		set chat format to "§7[§cA§7] §6%player% §8» §a%message%"
+	else:
+		set chat format to "§7[§bS§7] §6%player% §8» §b%message%"
+		
+on join:
+	set join message to "§7[§a+§7] §6%player% §7hat den Server betreten."
+on disconnect:
+	set leave message to "§7[§a-§7] §6%player% §7hat den Server verlassen."
+	
+on weather change to sunny:
+	send "§7[§bDD §8| §dWetter§7] §8» §7Die Sonne kommt wieder heraus." to all players
+on weather change to rain:
+	send "§7[§bDD §8| §dWetter§7] §8» §7Es fängt an zu Regnen." to all players
+on weather change to thunder:
+	send "§7[§bDD §8| §dWetter§7] §8» §7Ein Gewitter zieht auf!" to all players
+
