@@ -1,0 +1,100 @@
+#Donnjer Development Cords / Home Skript
+options:
+	p: §7[§bDD §7| §dCords§7] §8»
+
+command /cords [<string>] [<string>]:
+	trigger:
+		set {cordssettings.teleport} to false 
+		if arg-1 is not set:
+			send "§8--------- §bDD §8| §dCords §8---------"
+			send ""
+			send "§a/cords set §7<§dName§7> §8| §7Setzt einen neuen Punkt"
+			send "§a/cords delete §7<§dName§7> §8| §7Löscht einen bestehenden Punkt"
+			send "§a/cords list §8| §7Listet deine Punkte auf"
+			send ""
+			send "§a/cords share §8| §7Teilt deine Koordinaten mit dem Server"
+			send ""
+			send "§8--------- §bDD §8| §dCords §8---------"
+		else if arg-1 is "set":
+			if arg-2 is set:				
+				if {cords::%player%::point::%arg-2%::exist} is not set:
+					set {cords::%player%::point::%arg-2%::exist} to player's location
+					set {cords::%player%::point::%arg-2%} to arg-2
+					set {cords::%player%::point::%arg-2%::x} to player's x coordinate
+					set {cords::%player%::point::%arg-2%::y} to player's y coordinate
+					set {cords::%player%::point::%arg-2%::z} to player's z coordinate
+					set {cords::%player%::point::%arg-2%::w} to player's world
+					send "{@p} §eDein neuer Punkt §d%arg-2% §ewurde gesetzt."
+					send "{@p} §7X: %{cords::%player%::point::%arg-2%::x}% Y: %{cords::%player%::point::%arg-2%::y}% Z: %{cords::%player%::point::%arg-2%::z}% Welt: %{cords::%player%::point::%arg-2%::w}%"
+					
+				else:
+					send "{@p} §cFehler!"
+					send "{@p} §7Es gibt schon einen Punkt mit diesem Namen."
+					send "{@p} §7Gib einen anderen Namen an oder lösche den Punkt zuerst."
+					send "{@p} §7/cords delete <Name>"	
+					
+			else:
+				send "{@p} §cFehler!"
+				send "{@p} §7Du musst einen Namen für deinen neuen Punkt angeben."
+				send "{@p} §7/cords set <Name>"
+			
+		else if arg-1 is "delete":
+			if arg-2 is set:			
+				if {cords::%player%::point::%arg-2%::exist} is set:
+					send "{@p} §eDein Punkt §d%arg-2% §ewurde gelöscht."
+					send "{@p} §7Früher war er hier:"
+					send "{@p} §7X: %{cords::%player%::point::%arg-2%::x}% Y: %{cords::%player%::point::%arg-2%::y}% Z: %{cords::%player%::point::%arg-2%::z}% Welt: %{cords::%player%::point::%arg-2%::w}%"
+					clear {cords::%player%::point::%arg-2%::exist}
+					clear {cords::%player%::point::%arg-2%}
+					clear {cords::%player%::point::%arg-2%::x}
+					clear {cords::%player%::point::%arg-2%::y}
+					clear {cords::%player%::point::%arg-2%::z}
+					clear {cords::%player%::point::%arg-2%::w}
+				else:
+					send "{@p} §cFehler!"
+					send "{@p} §7Es gibt keinen deiner Punkte mit diesem Namen."
+					send "{@p} §7Du kannst deine Punkte mit diesem Kommando auflisten:"
+					send "{@p} §7/cords list"
+			else:
+				send "{@p} §cFehler!"
+				send "{@p} §7Du musst den Namen des Punktes angeben, den du löschen möchtest."
+				send "{@p} §7/cords delete <Name>"
+		
+		else if arg-1 is "list":
+			if {cords::%player%::point::*} is set:
+				send "{@p} §7Deine gespeicherten Punkte"
+				loop {cords::%player%::point::*}:
+					send formatted "§e➥ §d%loop-value% <command:/cords show %loop-value%>§7[§eKoordinaten§7]<reset> <command:/cords share %loop-value%>§7[§9Teilen§7]<reset> <command:/cords tp %loop-value%>§7[§aTeleport§7]<reset>"
+			else:
+				send "{@p} §7Du hast keine Punkte gespeichert."	
+				send "{@p} §7Du kannst neue Punkte wie folgt erstellen:"
+				send "{@p} §7/cords set <Name>"
+		else if arg-1 is "show":
+			if arg-2 is set:
+				if {cords::%player%::point::%arg-2%::exist} is set:
+					send "{@p} §7Punkt: §d%arg-2% §8| §7X: §e%{cords::%player%::point::%arg-2%::x}% §7Y: §e%{cords::%player%::point::%arg-2%::y}% §7Z: §e%{cords::%player%::point::%arg-2%::z}% §7Welt: §e%{cords::%player%::point::%arg-2%::w}%"
+		else if arg-1 is "share":
+			if arg-2 is set:
+				if {cords::%player%::point::%arg-2%::exist} is set:
+					send "§8--------- §dCords Share §8| §6%player% §8---------" to all players
+					send "§7Punkt: §b%arg-2%" to all players
+					send "§7X: §e%{cords::%player%::point::%arg-2%::x}% §7Y: §e%{cords::%player%::point::%arg-2%::y}% §7Z: §e%{cords::%player%::point::%arg-2%::z}%" to all players
+					send "§7Welt: §e%{cords::%player%::point::%arg-2%::w}%" to all players
+					send "§8--------- §dCords Share §8| §6%player% §8---------" to all players
+			else:
+				send "§8--------- §dCords Share §8| §6%player% §8---------" to all players
+				send "§7Punkt: §bSpielerposition: §6%player%" to all players
+				send "§7X: §e%player's x coordinate% §7Y: §e%player's y coordinate% §7Z: §e%player's z coordinate%" to all players
+				send "§7Welt: §e%player's world%" to all players
+				send "§8--------- §dCords Share §8| §6%player% §8---------" to all players
+		else if arg-1 is "tp":
+			if {cords::%player%::point::%arg-2%::exist} is set:
+				if {cordssettings.teleport} is true:
+					teleport event-player to  {cords::%player%::point::%arg-2%::exist}
+					send "{@p} §7Du wurdest zu deinem Punkt §d%arg-2% §7teleportiert."
+				else:
+					send "{@p} §7Das Teleport-Modul ist deaktiviert."
+		else:
+			send "{@p} §cFehler!"
+			send "{@p} §7Dieses Argument gibt es nicht."
+			send "{@p} §7Siehe /cords"
