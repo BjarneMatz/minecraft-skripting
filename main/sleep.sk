@@ -1,0 +1,18 @@
+options:
+	p: §7[§bDD §7| §dSleep§7] §8»
+on bed enter:
+	cancel event
+	set {sleeping} to true
+	send "{@p} §6%player% §7möchte schlafen."
+	send "{@p} §7Es wird Tag in §e10 §7Sekunden."
+	send formatted "{@p} <command: /stopsleep>§7[§cAbbrechen§7]"
+	wait 10 seconds
+	if {sleeping} is set:
+		set time to day
+		clear {sleeping}
+	
+command /stopsleep:
+	trigger:
+		if {sleeping} is set:
+			clear {sleeping}
+			send "{@p} §7Schlafen wurde von §6%player% §7abgebrochen!"
