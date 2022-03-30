@@ -1,0 +1,23 @@
+options:
+	p: §7[§bDD §7| §dDeath§7] §8»
+
+on death:
+	set {death::%player%::cords} to player's location
+	set {death::%player%::cords::x} to player's x coordinate
+	set {death::%player%::cords::y} to player's y coordinate
+	set {death::%player%::cords::z} to player's z coordinate
+	
+	force player to respawn
+	send "{@p} §7Dein Todespunkt befindet sich bei:"
+	send "{@p} §7X: §e%{death::%player%::cords::x}% §7Y: §e%{death::%player%::cords::y}% §7Z: §e%{death::%player%::cords::z}%"
+	send formatted "{@p} <command:/tpdeath>§7[§eTeleport§7]"
+	
+command /tpdeath [<string>]:
+	trigger:
+		set {deathsettings::tp} to true
+		if {deathsettings::tp} is true:
+			if {death::%player%::cords} is set:
+				teleport player to {death::%player%::cords}
+				clear {death::%player%::cords}
+		else:
+			send "{@p} §7Das Teleport-Modul ist deaktiviert."

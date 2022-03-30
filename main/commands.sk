@@ -1,5 +1,5 @@
 command /karte [<string>]:
 	aliases: map
 	trigger:
-		send "§7[§bDD §7| §dKarte§7] §8» §7Unsere Online-Karte findest du <link:http://donnjer.de:8123/>§7[§dHier§7]"
+		send "§7[§bDD §7| §dKarte§7] §8» §7Unsere Online-Karte findest du <link:http://vps.donnjer.de:8123/>§7[§dHier§7]"
 		

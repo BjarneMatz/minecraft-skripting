@@ -83,7 +83,7 @@ command /cords [<string>] [<string>]:
 					send "§8--------- §dCords Share §8| §6%player% §8---------" to all players
 			else:
 				send "§8--------- §dCords Share §8| §6%player% §8---------" to all players
-				send "§7Punkt: §bSpielerposition: §6%player%" to all players
+				send "§7Punkt: §bSpielerposition" to all players
 				send "§7X: §e%player's x coordinate% §7Y: §e%player's y coordinate% §7Z: §e%player's z coordinate%" to all players
 				send "§7Welt: §e%player's world%" to all players
 				send "§8--------- §dCords Share §8| §6%player% §8---------" to all players

@@ -9,6 +9,7 @@ on bed enter:
 	wait 10 seconds
 	if {sleeping} is set:
 		set time to day
+		set weather to clear
 		clear {sleeping}
 	
 command /stopsleep:

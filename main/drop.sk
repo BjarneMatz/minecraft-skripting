@@ -1,0 +1,17 @@
+#Drop 2 Inv
+
+command /drop2inv [<string>]:
+	trigger:
+	
+		if {d2i::%player%} is false:
+			set {d2i::%player%} to true
+			send "Ein"
+		else:
+			set {d2i::%player%} to false
+			send "Aus"
+			
+on block break:
+	{d2i::%player%} is true
+	cancel drops
+	give player 
+	

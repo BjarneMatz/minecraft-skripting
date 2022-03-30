@@ -1,0 +1,9 @@
+#Donnjer Development Server Maintance Skript
+
+options:
+	kick-message: §bDD%newline%§cDer Server befindet sich im Wartungsmodus!
+	bypass-permission: maintance.bypass
+	
+on connect:
+	player don't have permission "{@bypass-permission}"
+	kick player due to "{@kick-message}"
